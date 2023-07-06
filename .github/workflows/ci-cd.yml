@@ -13,28 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        uses: docker/setup-docker@v1
+      - name: Create Docker secrets
+        run: |
+          echo "::set-env name=DOCKER_USERNAME::your-docker-username"
+          echo "::set-env name=DOCKER_PASSWORD::your-docker-password"
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          push: true
-          tags: your-docker-image-tag
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Docker
-        uses: docker/setup-docker@v1
-
-      - name: Deploy with Docker Compose
         run: |
-          docker-compose up -d
+          docker build -t your-docker-image-tag .
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+          docker push your-docker-image-tag
