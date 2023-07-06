@@ -1,18 +1,26 @@
 version: "3"
 services:
   directus:
-    build: .
+    image: directus/directus:v9
     ports:
       - 8055:8055
     depends_on:
       - database
+    environment:
+      - DIRECTUS_DATABASE_HOST=database
+      - DIRECTUS_DATABASE_PORT=3306
+      - DIRECTUS_DATABASE_NAME=<Directus database>
+      - DIRECTUS_DATABASE_USERNAME=<RaigoRobin12>
+      - DIRECTUS_DATABASE_PASSWORD=<Raigo1234>
+
   database:
     image: mysql:latest
     environment:
-      - MYSQL_DATABASE=<Directuse database>
+      - MYSQL_DATABASE=<Directus database>
       - MYSQL_USER=<RaigoRobin12>
       - MYSQL_PASSWORD=<Raigo1234>
       - MYSQL_ROOT_PASSWORD=<Raigo12345>
+
   sentry:
     image: getsentry/sentry:latest
     environment:
