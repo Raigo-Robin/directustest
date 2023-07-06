@@ -10,9 +10,6 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy the rest of the application code
-COPY backend/ ./
-
 # Expose the port your Directus application listens on (e.g., 8055)
 EXPOSE 8055
 
