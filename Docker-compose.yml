@@ -23,6 +23,8 @@ services:
 
   sentry:
     image: getsentry/sentry:latest
+    ports:
+      - 9000:9000
     environment:
       - SENTRY_SECRET_KEY=my-secret-key
       - SENTRY_POSTGRES_HOST=my-postgres-host
